@@ -1,22 +1,6 @@
-// A list of provinces:
-/*const provinces = ['Western Cape', 'Gauteng', 'Northern Cape', 'Eastern Cape', 'KwaZulu-Natal', 'Free State']
-
-// A list of names:
-const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikkie']
-
-// A list of products with prices:
-const products = [
-  { product: 'banana', price: "2" },
-  { product: 'mango', price: 6 },
-  { product: 'potato', price: ' ' },
-  { product: 'avocado', price: "8" },
-  { product: 'coffee', price: 10 },
-  { product: 'tea', price: '' },
-]*/
-
 const provinces = ['Western Cape', 'Gauteng', 'Northern Cape', 'Eastern Cape', 'KwaZulu-Natal', 'Free State'];
 const names = ['Ashwin', 'Sibongile', 'Jan-Hendrik', 'Sifso', 'Shailen', 'Frikkie'];
-const products1 = [
+const products = [
   { product: 'banana', price: "2" },
   { product: 'mango', price: 6 },
   { product: 'potato', price: ' ' },
@@ -58,45 +42,38 @@ const nameProvinceMap = names.reduce((acc, name, index) => {
 }, {});
 console.log(nameProvinceMap);
 
-
-const products = [
-  { product: 'banana', price: "2" },
-  { product: 'mango', price: 6 },
-  { product: 'potato', price: ' ' },
-  { product: 'avocado', price: "8" },
-  { product: 'coffee', price: 10 },
-  { product: 'tea', price: '' },
-];
-
 // Log Products
-console.log(products.forEach(product => console.log(product.product)));
+products.forEach(product => console.log(product.product));
 
 // Filter by Name Length
-console.log(products.filter(product => product.product.length <= 5));
+const shortNamedProducts = products.filter(product => product.product.length <= 5);
+console.log(shortNamedProducts);
 
 // Price Manipulation
-console.log(products
-  .filter(product => product.price.trim() !== '')
-  .map(product => ({ ...product, price: Number(product.price) }))
-  .reduce((total, product) => total + product.price, 0)
-);
+const validProducts = products
+  .filter(product => product.price !== '')
+  .map(product => ({ ...product, price: Number(product.price) }));
+
+const totalPrice = validProducts.reduce((total, product) => total + product.price, 0);
+console.log(totalPrice);
 
 // Concatenate Product Names
-console.log(products.reduce((acc, product) => acc + product.product, ''));
+const concatenatedProductNames = products.reduce((acc, product) => acc + product.product, '');
+console.log(concatenatedProductNames);
 
 // Find Extremes in Prices
-console.log(products
-  .filter(product => product.price.trim() !== '')
-  .map(product => ({ ...product, price: Number(product.price) }))
-  .reduce((acc, product) => {
-    if (product.price > acc.highest.price) acc.highest = product;
-    if (product.price < acc.lowest.price) acc.lowest = product;
-    return acc;
-  }, { highest: { price: -Infinity }, lowest: { price: Infinity } })
-);
+const priceExtremes = validProducts.reduce((acc, product) => {
+  if (product.price > acc.highest.price) acc.highest = product;
+  if (product.price < acc.lowest.price) acc.lowest = product;
+  return acc;
+}, { highest: { price: -Infinity }, lowest: { price: Infinity } });
+
+console.log(`Highest: ${priceExtremes.highest.product} (${priceExtremes.highest.price}). Lowest: ${priceExtremes.lowest.product} (${priceExtremes.lowest.price})`);
 
 // Object Transformation
-console.log(Object.entries(products).reduce((acc, [key, value]) => {
-  acc[key] = { name: value.product, cost: value.price };
+const transformedProducts = products.reduce((acc, product, index) => {
+  acc[index] = { name: product.product, cost: product.price };
   return acc;
-}, {}));
+}, {});
+
+console.log(transformedProducts);
