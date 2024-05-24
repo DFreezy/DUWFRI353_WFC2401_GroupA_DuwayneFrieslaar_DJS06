@@ -11,29 +11,37 @@ const products = [
 
 // 1. ForEach Basics
 names.forEach(name => console.log(name));
+//I console.log each name
 provinces.forEach(province => console.log(province));
+//I console.log each province
 names.forEach((name, index) => console.log(`${name} (${provinces[index]})`));
+//Finally I logged eeach name with their respective province in the console using the forEach method
 
 // 2. Uppercase Transformation
 const uppercaseProvinces = provinces.map(province => province.toUpperCase());
 console.log(uppercaseProvinces);
+//I used the map method to iterate over the array of provinces, and make a new array where each province is upperCase
 
 // 3. Name Lengths
 const nameLengths = names.map(name => name.length);
 console.log(nameLengths);
+//I used map to iterate over the array, and return a new array of the length of each.
 
 // 4. Sorting
 const sortedProvinces = [...provinces].sort();
 console.log(sortedProvinces);
+//I sorted all provinces in alphabetical order
 
 // 5. Filtering Cape
 const nonCapeProvinces = provinces.filter(province => !province.includes('Cape'));
 console.log(nonCapeProvinces.length);
 console.log(nonCapeProvinces);
+//I filtered out all provinces which doesn't include 'Cape'
 
 // 6. Finding 'S'
-const containsS = names.map(name => name.toLowerCase().includes('s'));
+const containsS = names.map(name => name.split('').some(char => char.toLowerCase() === 's'));
 console.log(containsS);
+//I used map and some methods to find the letter 's'
 
 // 7. Creating Object Mapping
 const nameProvinceMap = names.reduce((acc, name, index) => {
@@ -41,6 +49,7 @@ const nameProvinceMap = names.reduce((acc, name, index) => {
   return acc;
 }, {});
 console.log(nameProvinceMap);
+//I created an object storing the names as keys, and the provinces as values
 
 // Log Products
 products.forEach(product => console.log(product.product));
@@ -48,6 +57,7 @@ products.forEach(product => console.log(product.product));
 // Filter by Name Length
 const shortNamedProducts = products.filter(product => product.product.length <= 5);
 console.log(shortNamedProducts);
+//I filtered out the product name based on length
 
 // Price Manipulation
 const validProducts = products
