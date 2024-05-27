@@ -72,13 +72,24 @@ const concatenatedProductNames = products.reduce((acc, product) => acc + product
 console.log(concatenatedProductNames);
 
 // Find Extremes in Prices
-const priceExtremes = validProducts.reduce((acc, product) => {
-  if (product.price > acc.highest.price) acc.highest = product;
-  if (product.price < acc.lowest.price) acc.lowest = product;
-  return acc;
-}, { highest: { price: -Infinity }, lowest: { price: Infinity } });
+const validsProducts = products
+  .filter(product => product.price !== '') // Remove products with no price
+  .map(product => ({ ...product, price: Number(product.price) })); // Convert price to a number
+  const sortedProducts = validProducts.sort((a, b) => b.price - a.price);
+  console.log("Products from highest to lowest price:");
+  sortedProducts.forEach(product => {
+    console.log(`${product.product}: $${product.price}`);
+  });
 
-console.log(`Highest: ${priceExtremes.highest.product} (${priceExtremes.highest.price}). Lowest: ${priceExtremes.lowest.product} (${priceExtremes.lowest.price})`);
+  const priceExtremes = validProducts.reduce((acc, product) => {
+    if (product.price > acc.highest.price) acc.highest = product; // Check for highest price
+    if (product.price < acc.lowest.price) acc.lowest = product;   // Check for lowest price
+    return acc;
+  }, { highest: { price: -Infinity }, lowest: { price: Infinity } });
+
+  console.log(`Highest: ${priceExtremes.highest.product} (${priceExtremes.highest.price}). Lowest: ${priceExtremes.lowest.product} (${priceExtremes.lowest.price})`);
+
+
 
 // Object Transformation
 const transformedProducts = products.reduce((acc, product, index) => {
